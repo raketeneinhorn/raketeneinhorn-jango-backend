@@ -36,8 +36,10 @@ bootJar {
 
 bootRun {
     systemProperty 'spring.profiles.active', 'local'
+    systemProperty 'spring.output.ansi.enabled', 'ALWAYS'
 }
 
 bootTestRun {
     systemProperty 'spring.profiles.active', 'local'
+    systemProperty 'spring.output.ansi.enabled', 'ALWAYS'
 }
