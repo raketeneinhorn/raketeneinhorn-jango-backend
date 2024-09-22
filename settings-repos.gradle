@@ -22,5 +22,13 @@ dependencyResolutionManagement {
                 password = gpr_key
             }
         }
+        maven {
+            name = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-testcontainers"
+            url = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-testcontainers"
+            credentials {
+                username = gpr_user
+                password = gpr_key
+            }
+        }
     }
 }
