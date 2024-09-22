@@ -1,0 +1,11 @@
+plugins {
+    id 'jango-backend.application'
+}
+
+dependencies {
+    implementation project(":jango-backend-base")
+}
+
+application {
+    mainClass = 'com.raketeneinhorn.jango.backend.JangoBackendApplication'
+}

@@ -1,0 +1,36 @@
+plugins {
+	id 'jango-backend.library'
+	id 'jacoco-report-aggregation'
+	alias(libs.plugins.axion.release)
+	alias(libs.plugins.sonarqube)
+}
+
+scmVersion {
+	/*
+	 * TODO write custom code (shorten long names) instead for better SonarQube integration
+	 *  	when not using Sonar on GitHub
+	 */
+	versionCreator('versionWithCommitHash')
+}
+
+group = 'com.raketeneinhorn.jango.backend'
+version = scmVersion.version
+
+dependencies {
+	jacocoAggregation project(':jango-backend-base')
+	jacocoAggregation project(':jango-backend-fake')
+	jacocoAggregation project(':jango-backend-service')
+}
+
+testCodeCoverageReport {
+	dependsOn test
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "raketeneinhorn_raketeneinhorn-jango-backend"
+		property "sonar.organization", "raketeneinhorn"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.jacoco.xmlReportPaths", testCodeCoverageReport.reports.xml.outputLocation.get().asFile.toString()
+	}
+}

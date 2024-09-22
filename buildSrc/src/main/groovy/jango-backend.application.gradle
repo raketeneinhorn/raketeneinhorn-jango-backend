@@ -1,0 +1,8 @@
+plugins {
+    id 'application'
+    id 'jango-backend.library'
+}
+
+bootJar {
+    enabled = true
+}

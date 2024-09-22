@@ -1,0 +1,13 @@
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from('com.raketeneinhorn.gradle:raketeneinhorn-gradle-version-catalog:0.4.2')
+        }
+    }
+}
+
+include 'jango-backend-base'
+include 'jango-backend-fake'
+include 'jango-backend-service'
+
+apply from: 'settings-repos.gradle'

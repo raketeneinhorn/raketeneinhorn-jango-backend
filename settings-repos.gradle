@@ -1,0 +1,26 @@
+var gpr_user = (hasProperty('gpr.user') ? getProperty('gpr.user') : null) ?: System.getenv("GITHUB_ACTOR")
+var gpr_key = (hasProperty('gpr.key') ? getProperty('gpr.key') : null) ?: System.getenv("GITHUB_TOKEN")
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+
+        // Putting those in a loop does not work for renovate :-(
+        maven {
+            name = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-gradle-version-catalog"
+            url = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-gradle-version-catalog"
+            credentials {
+                username = gpr_user
+                password = gpr_key
+            }
+        }
+        maven {
+            name = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-observability-spring-boot-starter"
+            url = "https://maven.pkg.github.com/raketeneinhorn/raketeneinhorn-observability-spring-boot-starter"
+            credentials {
+                username = gpr_user
+                password = gpr_key
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+= Raketeneinhorn Jango Backend
+Benjamin Boksa
+:toc:
+:toclevels: 3
+
+A runnable template project for a Spring Boot backend service, featuring multiple integration examples.
+
+== License
+
+Raketeneinhorn Jango Backend is Open Source software released under the
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
