@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation 'com.raketeneinhorn.observability.spring.boot.starter:raketeneinhorn-observability-spring-boot-starter:0.2.0'
+    implementation 'com.raketeneinhorn.observability.spring.boot.starter:raketeneinhorn-observability-spring-boot-starter:0.2.1'
     api 'org.springframework.boot:spring-boot-starter-web' // TODO check scope 'api' (copied from demo in fakeservice-demo)
 
     runtimeOnly 'org.postgresql:postgresql'
