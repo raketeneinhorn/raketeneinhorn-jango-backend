@@ -8,5 +8,5 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql'
 
-    testImplementation 'com.raketeneinhorn.testcontainers:raketeneinhorn-testcontainers:0.0.1'
+    testImplementation 'com.raketeneinhorn.testcontainers:raketeneinhorn-testcontainers:0.0.2'
 }
