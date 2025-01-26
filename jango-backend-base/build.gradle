@@ -8,6 +8,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    compileOnly 'org.springframework.boot:spring-boot-actuator-autoconfigure'
+
     runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation 'com.raketeneinhorn.testcontainers:raketeneinhorn-testcontainers:0.0.2'
