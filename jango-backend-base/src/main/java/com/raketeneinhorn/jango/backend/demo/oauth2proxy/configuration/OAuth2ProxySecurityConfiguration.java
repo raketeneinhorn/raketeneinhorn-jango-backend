@@ -17,16 +17,15 @@ import org.springframework.security.web.authentication.preauth.RequestHeaderAuth
 @EnableConfigurationProperties(OAuth2ProxySecurityConfigurationProperties.class)
 public class OAuth2ProxySecurityConfiguration {
 
-    public static final String AUTH_PATH_PREFIX = "/demo/oauth2-proxy/auth";
-    public static final String NOAUTH_PATH_PREFIX = "/demo/oauth2-proxy/noauth";
-
     private final RequestHeaderAuthenticationFilter requestHeaderAuthenticationFilter;
+
+    private final OAuth2ProxySecurityConfigurationProperties properties;
 
     @Order(1)
     @Bean
     public SecurityFilterChain oAuth2ProxyAuthSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .securityMatcher(AUTH_PATH_PREFIX + "/**")
+            .securityMatcher(properties.getAuthPathPrefix() + "/**")
                 .addFilterBefore(requestHeaderAuthenticationFilter, AnonymousAuthenticationFilter.class)
                 .authorizeHttpRequests(auth ->
                     auth.anyRequest().authenticated()
@@ -40,7 +39,7 @@ public class OAuth2ProxySecurityConfiguration {
     @Bean
     public SecurityFilterChain oAuth2ProxyNoAuthSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .securityMatcher(NOAUTH_PATH_PREFIX + "/**")
+            .securityMatcher(properties.getNoauthPathPrefix() + "/**")
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
