@@ -1,11 +1,11 @@
 package com.raketeneinhorn.jango.backend.demo.oauth2proxy.configuration;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Service;
 
 @Getter
-@Service
+@Setter
 @ConfigurationProperties("jango.backend.demo.oauth2proxy")
 public class OAuth2ProxySecurityConfigurationProperties {
 
