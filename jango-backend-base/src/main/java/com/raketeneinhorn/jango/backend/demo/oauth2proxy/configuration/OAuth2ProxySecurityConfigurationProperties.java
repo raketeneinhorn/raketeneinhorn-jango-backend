@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 @ConfigurationProperties("jango.backend.demo.oauth2proxy")
 public class OAuth2ProxySecurityConfigurationProperties {
 
-    private String authPathPrefix = "/demo/oauth2-proxy/auth";
-    private String noauthPathPrefix = "/demo/oauth2-proxy/noauth";
+    public static final String AUTH_PATH_PREFIX_DEFAULT = "/demo/oauth2-proxy/auth";
+    public static final String NOAUTH_PATH_PREFIX_DEFAULT = "/demo/oauth2-proxy/noauth";
+
+    private String authPathPrefix = AUTH_PATH_PREFIX_DEFAULT;
+    private String noauthPathPrefix = NOAUTH_PATH_PREFIX_DEFAULT;
 
 }
