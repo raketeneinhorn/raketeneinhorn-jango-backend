@@ -1,6 +1,7 @@
 package com.raketeneinhorn.jango.backend.demo.oauth2proxy.configuration;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.preauth.RequestHeaderAuth
 
 @RequiredArgsConstructor
 @Configuration
+@EnableConfigurationProperties(OAuth2ProxySecurityConfigurationProperties.class)
 public class OAuth2ProxySecurityConfiguration {
 
     public static final String AUTH_PATH_PREFIX = "/demo/oauth2-proxy/auth";
@@ -26,9 +28,9 @@ public class OAuth2ProxySecurityConfiguration {
         return http
             .securityMatcher(AUTH_PATH_PREFIX + "/**")
                 .addFilterBefore(requestHeaderAuthenticationFilter, AnonymousAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> {
-                    auth.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(auth ->
+                    auth.anyRequest().authenticated()
+                )
                 .httpBasic(HttpBasicConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();

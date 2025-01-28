@@ -17,11 +17,10 @@ public class SecurityConfiguration {
         String actuatorBasePath = webEndpointProperties.getBasePath();
 
         return http
-            .authorizeHttpRequests(auth -> {
+            .authorizeHttpRequests(auth ->
                 auth
                     .requestMatchers(HttpMethod.GET, actuatorBasePath + "/**").permitAll()
-                    .anyRequest().denyAll();
-            })
+                    .anyRequest().denyAll())
             .build();
     }
 
