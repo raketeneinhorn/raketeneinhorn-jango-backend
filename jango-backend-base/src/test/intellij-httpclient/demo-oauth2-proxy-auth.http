@@ -1,0 +1,158 @@
+### Check service request to noauth endpoint without Authorization is anonymous
+GET http://service.localtest.me:8080/demo/oauth2-proxy/noauth/api/info
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is anonymous", function() {
+        client.assert(response.body.name === "anonymousUser", "The user is not the anonymous user");
+    });
+%}
+
+
+
+### Check service request to noauth endpoint with Bearer Token From Keycloak is anonymous
+GET http://service.localtest.me:8080/demo/oauth2-proxy/noauth/api/info
+Authorization: Bearer {{$auth.token("keycloak")}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is anonymous", function() {
+        client.assert(response.body.name === "anonymousUser", "The user is not the anonymous user");
+    });
+%}
+
+
+
+### Check service request to auth endpoint without Authorization is denied
+GET http://service.localtest.me:8080/demo/oauth2-proxy/auth/api/info
+
+> {%
+    client.test("Request is denied with 403", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+    });
+%}
+
+
+### Check service request to auth endpoint with Bearer Token From Keycloak is denied
+GET http://service.localtest.me:8080/demo/oauth2-proxy/auth/api/info
+Authorization: Bearer {{$auth.token("keycloak")}}
+
+> {%
+    client.test("Request is denied with 403", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+    });
+%}
+
+
+
+### Check service request to auth endpoint with required header user is succssful
+GET http://service.localtest.me:8080/demo/oauth2-proxy/auth/api/info
+x-forwarded-preferred-username: john.doe@example.com
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is john.doe@example.com", function() {
+        client.assert(response.body.name === "john.doe@example.com", "The user is not john.doe@example.com");
+    });
+
+    client.test("User has no authorities", function() {
+        client.assert(response.body.authorities.length === 0, "The user unexpectedly has authorities");
+    });
+%}
+
+
+
+### Check service request to auth endpoint with optional groups header is succssful
+GET http://service.localtest.me:8080/demo/oauth2-proxy/auth/api/info
+x-forwarded-preferred-username: john.doe@example.com
+x-forwarded-groups: rebellion,jedi
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is john.doe@example.com", function() {
+        client.assert(response.body.name === "john.doe@example.com", "The user is not john.doe@example.com");
+    });
+
+    client.test("User has exactly the specified authorities", function() {
+        let hasSpecifiedAuthorities =
+            response.body.authorities.length === 2 &&
+            response.body.authorities[0].authority === 'jedi' &&
+            response.body.authorities[1].authority === 'rebellion';
+
+        client.assert(hasSpecifiedAuthorities, "The user does not have the expected authorities");
+    });
+%}
+
+
+
+### Check proxy request to noauth endpoint without Authorization is anonymous
+GET http://proxy.localtest.me:4180/demo/oauth2-proxy/noauth/api/info
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is anonymous", function() {
+        client.assert(response.body.name === "anonymousUser", "The user is not the anonymous user");
+    });
+%}
+
+
+
+### Check proxy request to noauth endpoint with Bearer Token From Keycloak is anonymous
+GET http://proxy.localtest.me:4180/demo/oauth2-proxy/noauth/api/info
+Authorization: Bearer {{$auth.token("keycloak")}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is anonymous", function() {
+        client.assert(response.body.name === "anonymousUser", "The user is not the anonymous user");
+    });
+%}
+
+
+
+### Check proxy request to auth endpoint without Authorization is denied
+GET http://proxy.localtest.me:4180/demo/oauth2-proxy/auth/api/info
+
+> {%
+    client.test("Request is denied with 401", function() {
+        client.assert(response.status === 401, "Response status is not 403");
+    });
+%}
+
+
+
+### Check proxy request to auth endpoint with Bearer Token From Keycloak is successful
+GET http://proxy.localtest.me:4180/demo/oauth2-proxy/auth/api/info
+Authorization: Bearer {{$auth.token("keycloak")}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("User is admin@example.com", function() {
+        client.assert(response.body.name === "admin@example.com", "The user is not admin@example.com");
+    });
+
+    client.test("User has no authorities", function() {
+        client.assert(response.body.authorities.length === 18, "The user an unexpected number of authorities");
+    });
+%}
