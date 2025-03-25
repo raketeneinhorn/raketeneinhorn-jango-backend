@@ -5,6 +5,8 @@ Benjamin Boksa
 
 A runnable template project for a Spring Boot backend service, featuring multiple integration examples.
 
+== Test
+
 == License
 
 Raketeneinhorn Jango Backend is Open Source software released under the
