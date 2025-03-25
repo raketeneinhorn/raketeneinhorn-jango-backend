@@ -9,6 +9,7 @@ scmVersion {
 	/*
 	 * TODO write custom code (shorten long names) instead for better SonarQube integration
 	 *  	when not using Sonar on GitHub
+  	 *
 	 */
 	versionCreator('versionWithCommitHash')
 }
