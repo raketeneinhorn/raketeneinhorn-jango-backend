@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation 'com.raketeneinhorn.observability.spring.boot.starter:raketeneinhorn-observability-spring-boot-starter:0.2.1'
+    implementation 'com.raketeneinhorn.observability.spring.boot.starter:raketeneinhorn-observability-spring-boot-starter:0.3.0'
     api 'org.springframework.boot:spring-boot-starter-web' // TODO check scope 'api' (copied from demo in fakeservice-demo)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
